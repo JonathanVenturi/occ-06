@@ -6,89 +6,45 @@
   <meta charset="utf-8">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+
+  <!-- Models -->
+  <script src="scripts/models/JSONData.js" defer></script>
+  <script src="scripts/models/Photographer.js" defer></script>
+  <script src="/scripts/models/PhotographersList.js" defer></script>
+  <script src="/scripts/models/Media.js" defer></script>
+  <script src="/scripts/models/Photo.js" defer></script>
+  <script src="/scripts/models/Video.js" defer></script>
+  <script src="/scripts/models/MediaFactory.js" defer></script>
+  <script src="/scripts/models/Collection.js" defer></script>
+
+  <!-- Views -->
+  <script src="/scripts/templates/PhotographerView.js" defer></script>
+  <script src="/scripts/templates/MediaView.js" defer></script>
+  <script src="/scripts/templates/CollectionView.js" defer></script>
+  <script src="/scripts/templates/Lightbox.js" defer></script>
+  <script src="/scripts/templates/ContactForm.js" defer></script>
+  <!-- Logic -->
+  <script src="/scripts/pages/photographer.js" defer></script>
+
+
   <title>Fisheye - photographe </title>
 </head>
 
 <body>
+
   <header>
     <a href="./index.html">
       <img src="assets/images/logo.png" class="logo" />
     </a>
   </header>
+
   <main id="main">
-    <div class="photographer_hero_section">
-      <button class="button button-contact">Contactez-moi</button>
-    </div>
-
-    <section class="media-section">
-      <span class="media-filter">Trier par :</span>
-      <div class="media-sort">
-        <select id="media-sort-select">
-          <option value="likes">Popularité</option>
-          <option value="date">Date</option>
-          <option value="title">Titre</option>
-        </select>
-      </div>
-
-      <div class="media-gallery"></div>
-
-    </section>
-
-    <div class="extra-infos">
-      <span class="heart like-counter"></span>
-      <span class="daily-rate"></span>
-    </div>
-
-
+    <section class="profile"></section>
+    <section class="media-section"></section>
+    <div class="extra-infos"></div>
   </main>
 
+  <div class="modal-anchor"></div>
 
-
-
-
-  <div class="modal-anchor">
-
-    <div class="modal-lightbox"> </div>
-
-    <div class="modal-contact">
-      <header>
-        <h2>Contactez-moi</h2>
-        <img class="modal-button-close" src="assets/icons/close.svg">
-      </header>
-      <form id="contact-form">
-        <label for="surname">Prénom</label>
-        <input type="text" id="surname">
-        <label for="name">Nom</label>
-        <input type="text" id="name">
-
-        <label for="email">Email</label>
-        <input type="email" id="email">
-        <label for="message">Votre message</label>
-        <textarea type="text" id="message"></textarea>
-        <button class="button" id="button-contact-submit">Envoyer</button>
-      </form>
-    </div>
-
-
-
-
-
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-  <script src="/scripts/templates/media.js"></script>
-  <script src="/scripts/templates/photographer.js"></script>
-  <script src="/scripts/pages/photographer.js"></script>
-  <script src="/scripts/utils/contactForm.js"></script>
 </body>
-
 </html>
