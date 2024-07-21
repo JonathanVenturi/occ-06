@@ -7,53 +7,47 @@ class Lightbox {
 
     get view() {
 
+        this.keyboardEventBoundFunction = this.handleLightboxKeyboardEvents.bind(this);
+        document.addEventListener('keydown', this.keyboardEventBoundFunction);
+
         const view = document.createElement('div');
 
-        // Previous button
+        // Arrow button for previous media
         const previousButton = document.createElement('span');
         previousButton.classList.add('lightbox-button', 'lightbox-button-previous');
         previousButton.textContent = '\u2B9C';
+        previousButton.addEventListener('click', this.displayPreviousMedia.bind(this));
+        view.appendChild(previousButton);
+        // Hide it if media is first in the collection
+        if (this.index == 0) {
+            previousButton.style.display = 'none';
+        }
 
-        previousButton.addEventListener('click', () => {
-            if(this.index != 0){
-                this.index--;
-                const lightboxContent = document.querySelector('.lightbox-content');
-                lightboxContent.replaceWith(this.getLightboxContent());
-            }
-        });
-
-        // Lightbox Content
+        // Displat lightbox content
         const lightboxContent = this.getLightboxContent();
+        view.appendChild(lightboxContent);
 
-        // Next button
+        // Arrow button for next media
         const nextButton = document.createElement('span');
         nextButton.classList.add('lightbox-button', 'lightbox-button-next');
         nextButton.textContent = '\u2B9E';
-
-        nextButton.addEventListener('click', () => {
-            if(this.index != this.mediaList.length-1){
-                this.index++;
-                const lightboxContent = document.querySelector('.lightbox-content');
-                lightboxContent.replaceWith(this.getLightboxContent());
-            }
-        });
+        nextButton.addEventListener('click', this.displayNextMedia.bind(this));
+        view.appendChild(nextButton);
+        // Hide if media is last in the collection
+        if (this.index == this.mediaList.length - 1) {
+            nextButton.style.display = 'none';
+        }
 
         // Close button
         const closeButton = document.createElement('span');
         closeButton.classList.add('lightbox-button', 'lightbox-button-close');
         closeButton.textContent = '\u{1f7ab}';
-
         closeButton.addEventListener('click', () => {
+            document.removeEventListener('keydown', this.keyboardEventBoundFunction);
             const modalWrapper = document.querySelector('.modal-anchor');
             view.remove();
             modalWrapper.style.display = 'none';
         });
-
-        // Attach elements to the view and return
-
-        view.appendChild(previousButton);
-        view.appendChild(lightboxContent);
-        view.appendChild(nextButton);
         view.appendChild(closeButton);
 
         return view;
@@ -87,6 +81,57 @@ class Lightbox {
         lightboxContent.appendChild(title);
 
         return lightboxContent;
+
+    }
+
+    displayPreviousMedia() {
+
+        // If not the first element in the list, decrement index and display
+        if (this.index != 0) {
+            this.index--;
+            const lightboxContentSelector = document.querySelector('.lightbox-content');
+            lightboxContentSelector.replaceWith(this.getLightboxContent());
+
+            // And reset style for next button
+            const nextButton = document.querySelector('.lightbox-button-next');
+            nextButton.removeAttribute('style');
+
+        };
+
+        // If first element in the list after decrementing the index, hide the previous button
+        if (this.index == 0) {
+            const previousButton = document.querySelector('.lightbox-button-previous');
+            previousButton.style.display = 'none';
+        }
+    }
+
+    displayNextMedia() {
+
+        if (this.index != this.mediaList.length - 1) {
+            this.index++;
+            const lightboxContentSelector = document.querySelector('.lightbox-content');
+            lightboxContentSelector.replaceWith(this.getLightboxContent());
+
+            const previousButton = document.querySelector('.lightbox-button-previous');
+            previousButton.removeAttribute('style');
+
+        }
+
+        if (this.index == this.mediaList.length - 1) {
+            const nextButton = document.querySelector('.lightbox-button-next');
+            nextButton.style.display = 'none';
+        }
+    }
+
+    handleLightboxKeyboardEvents(event) {
+
+        if (event.key == 'ArrowLeft') {
+            event.preventDefault();
+            this.displayPreviousMedia();
+        } else if (event.key == 'ArrowRight') {
+            event.preventDefault();
+            this.displayNextMedia();
+        };
 
     }
 
