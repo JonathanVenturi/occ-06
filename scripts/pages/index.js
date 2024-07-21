@@ -1,17 +1,16 @@
 async function init() {
-    // Instantiating JSON data object 
+    // Getting JSON data for all photographers
     const JsonData = new JsonDataApi('./data/photographers.json');
+    const photographersData = await JsonData.getPhotographersData();
 
-    // Creating the photographers list
-    const photographersListObject = new PhotographersList(JsonData);
-
-    // Getting the view for the photographers list
-    const photographersListView = await photographersListObject.getView();
-
-    // Displaying the view in the right place
+    // Caching selector for the view
     const photographersSection = document.querySelector(".photographer_section");
-    photographersListView.classList.add('photographer_section');
-    photographersSection.replaceWith(photographersListView);
+
+    for await (const photographer of photographersData) {
+        const photographerCollection = await JsonData.getMediaFromPhotographer(photographer.id);
+        const photographerObject = new Photographer(photographer, photographerCollection);
+        photographersSection.appendChild(photographerObject.view.card);
+    }
 }
 
 init();
