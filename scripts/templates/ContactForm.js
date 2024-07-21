@@ -2,6 +2,8 @@ class ContactForm {
 
     constructor(photographer) {
 
+        this.photographer = photographer;
+
         const modalHeader = document.createElement('header');
         const title = document.createElement('h2');
         title.textContent = 'Contacter ' + photographer.name;
@@ -79,19 +81,20 @@ class ContactForm {
 
     submitForm() {
 
+        console.log('Current message to be sent to ' + this.photographer.name + ' (Photographer ID : ' + this.photographer.id + ')');        
+        console.log(document.getElementById('surname').value);
+        console.log(document.getElementById('name').value);
+        console.log(document.getElementById('email').value);
+        console.log(document.getElementById('message').value);
 
-
-        
         this.closeModal();
     }
 
 
     closeModal() {
 
-
         const modalAnchor = document.querySelector('.modal-anchor');
         modalAnchor.style.display = 'none';
-
         this.modal.remove();
 
     }

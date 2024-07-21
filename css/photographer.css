@@ -226,18 +226,20 @@
 }
 
 .modal-contact header {
+    display: flex;
     justify-content: space-between;
     width: 100%;
 }
 
-.modal-contact header img {
+.modal-contact .modal-button-close {
+    font-size: 5rem;
+    color: #fff;
     cursor: pointer;
 }
 
 .modal-contact header h2 {
     font-size: 64px;
     font-weight: normal;
-    text-align: center;
 }
 
 form {
@@ -274,6 +276,10 @@ form textarea {
     border-radius: 5px;
 }
 
+form button {
+    margin-top: 20px;
+}
+
 .modal-anchor {
     display: none;
     position: fixed;
@@ -287,13 +293,6 @@ form textarea {
 .modal {
     display: none;
 }
-
-
-
-
-
-
-
 
 
 .lightbox-button-close {
