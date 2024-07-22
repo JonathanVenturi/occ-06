@@ -1,4 +1,4 @@
-class MediaView {
+export class MediaView {
 
     constructor(media) {
         this.media = media;

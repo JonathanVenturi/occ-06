@@ -1,4 +1,6 @@
-class PhotographerView {
+import { ContactForm } from '../templates/ContactForm.js';
+
+export class PhotographerView {
 
     constructor(photographer) {
         this.photographer = photographer;

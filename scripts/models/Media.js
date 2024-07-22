@@ -1,8 +1,8 @@
-class Media {
+export class Media {
 
     constructor(JSONdata, collection) {
 
-        const {id, title, date, likes} = JSONdata;
+        const { id, title, date, likes } = JSONdata;
 
         this.id = id;
         this.title = title;
@@ -11,14 +11,14 @@ class Media {
 
         this.collection = collection;
 
-        if(this.isLiked) {
+        if (this.isLiked) {
             this.likes++;
         }
 
     }
 
     toggleLiked() {
-        if(this.isLiked) {
+        if (this.isLiked) {
             this.isLiked = false;
         } else if (!this.isLiked) {
             this.isLiked = true;
@@ -50,7 +50,7 @@ class Media {
         }
 
         // Store the list back in localStorage
-        localStorage.setItem('likedMedias',JSON.stringify(likedMedias));
+        localStorage.setItem('likedMedias', JSON.stringify(likedMedias));
 
     }
 

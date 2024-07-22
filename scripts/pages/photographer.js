@@ -1,3 +1,6 @@
+import { JsonDataApi } from '../models/JSONData.js';
+import { Photographer} from '../models/Photographer.js';
+
 async function init() {
 
     // Getting photographer's ID from URL

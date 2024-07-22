@@ -1,4 +1,4 @@
-class Lightbox {
+export class Lightbox {
 
     constructor(mediaList, index) {
         this.mediaList = mediaList;

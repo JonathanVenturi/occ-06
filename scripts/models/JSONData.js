@@ -1,4 +1,4 @@
-class JsonDataApi {
+export class JsonDataApi {
 
     constructor(url) {
         this.url = url;

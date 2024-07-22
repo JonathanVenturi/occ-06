@@ -1,4 +1,7 @@
-class Photographer {
+import { Collection } from '../models/Collection.js';
+import { PhotographerView } from '../templates/PhotographerView.js';
+
+export class Photographer {
 
     constructor(photographerData, mediaData) {
 
@@ -12,7 +15,7 @@ class Photographer {
         this.price = price;
 
         this.medias = new Collection(mediaData, this);
-        
+
         this.view = new PhotographerView(this);
 
     }

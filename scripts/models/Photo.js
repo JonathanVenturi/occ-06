@@ -1,4 +1,6 @@
-class Photo extends Media {
+import { Media } from '../models/Media.js';
+
+export class Photo extends Media {
     constructor(JSONdata, collection) {
         super(JSONdata, collection);
         this.source = JSONdata.image;

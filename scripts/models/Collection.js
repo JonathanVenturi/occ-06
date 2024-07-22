@@ -1,4 +1,7 @@
-class Collection {
+import { MediaFactory } from '../models/MediaFactory.js';
+import { CollectionView } from '../templates/CollectionView.js';
+
+export class Collection {
 
     constructor(data, photographer) {
 

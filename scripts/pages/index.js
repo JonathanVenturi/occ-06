@@ -1,3 +1,6 @@
+import { JsonDataApi } from '../models/JSONData.js';
+import { Photographer} from '../models/Photographer.js';
+
 async function init() {
     // Getting JSON data for all photographers
     const JsonData = new JsonDataApi('./data/photographers.json');

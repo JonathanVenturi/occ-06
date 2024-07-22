@@ -1,4 +1,4 @@
-class ContactForm {
+export class ContactForm {
 
     constructor(photographer) {
 

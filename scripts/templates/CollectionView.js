@@ -1,4 +1,7 @@
-class CollectionView {
+import { MediaView } from '../templates/MediaView.js';
+import { Lightbox } from '../templates/Lightbox.js';
+
+export class CollectionView {
 
     constructor(collection) {
         this.collection = collection.medias;
