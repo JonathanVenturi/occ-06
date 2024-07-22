@@ -19,17 +19,25 @@ class CollectionView {
         const sorter = document.createElement('div');
         sorter.classList.add('collection-sorter');
 
-        const span = document.createElement('span');
-        span.textContent = 'Trier par :';
-        sorter.appendChild(span);
+        const label = document.createElement('span');
+        label.id = 'sorter-label';
+        label.textContent = 'Trier par :';
+        sorter.appendChild(label);
 
         const wrapper = document.createElement('div');
         wrapper.classList.add('sorter-wrapper');
 
         const button = document.createElement('button');
         button.classList.add('sorter-button');
-        // TODO : ARIA role and attributes for button
+        button.role = 'combobox';
+        button.ariaLabel = 'Sort medias';
+        button.ariaHasPopup = 'listbox';
+        button.ariaExpanded = 'false';
+        button.setAttribute('aria-controls', 'sorter-dropdown'); // Replace this with line below when support gets better
+        // button.ariaControlsElements = 'sorter-dropdown'; // https://caniuse.com/mdn-api_element_ariacontrolselements
+
         button.addEventListener('click', () => {
+            button.ariaExpanded = button.ariaExpanded !== 'true';
             sorter.classList.toggle('active');
         });
 
@@ -38,20 +46,22 @@ class CollectionView {
         const buttonArrow = document.createElement('span');
         buttonArrow.classList.add('button-arrow');
         buttonArrow.textContent = '\u23F7';
-
         button.appendChild(buttonContent);
         button.appendChild(buttonArrow);
 
         const list = document.createElement('ul');
+        list.id = 'sorter-dropdown';
         list.classList.add('sorter-dropdown');
-        // TODO : ARIA
-
+        list.role = 'listbox';
+        list.setAttribute('aria-labelledby', 'sorter-label');
+        // list.ariaLabelledByElements = 'sorter-label'; // Another widely unsupported ARIA property - See above
 
         this.sortingOptions.forEach((value, key) => {
 
             const item = document.createElement('li');
             item.textContent = value;
-            // ARIA HERE TOO
+            item.tabIndex = 0;
+            item.role = 'listitem';
 
             if (this.sorter == key) {
                 item.style.display = 'none';
@@ -71,6 +81,15 @@ class CollectionView {
                 this.sorter = key;
                 this.refresh();
             });
+
+            item.addEventListener('keydown', (event) => {
+                if (event.key == 'Enter') {
+                    event.preventDefault();
+                    item.click();
+                }
+            });
+
+
             list.appendChild(item);
         });
 
