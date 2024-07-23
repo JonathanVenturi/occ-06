@@ -7,7 +7,7 @@ async function init() {
     const photographersData = await JsonData.getPhotographersData();
 
     // Caching selector for the view
-    const photographersSection = document.querySelector(".photographer_section");
+    const photographersSection = document.querySelector(".photographers-list");
 
     for await (const photographer of photographersData) {
         const photographerCollection = await JsonData.getMediaFromPhotographer(photographer.id);
