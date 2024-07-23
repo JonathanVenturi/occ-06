@@ -34,6 +34,7 @@ export class CollectionView {
         button.classList.add('sorter-button');
         button.role = 'combobox';
         button.ariaLabel = 'Sort medias';
+        button.setAttribute('aria-labelledby', 'sorter-label'); // Better for WCAG compliance in FF
         button.ariaHasPopup = 'listbox';
         button.ariaExpanded = 'false';
         button.setAttribute('aria-controls', 'sorter-dropdown'); // Replace this with line below when support gets better
@@ -123,6 +124,7 @@ export class CollectionView {
             const card = new MediaView(media);
 
             const mediaSelector = card.querySelector('.media');
+            mediaSelector.tabIndex = 0;
 
             mediaSelector.addEventListener('click', () => {
                 const modalAnchor = document.querySelector('.modal-anchor');
@@ -139,6 +141,13 @@ export class CollectionView {
 
             });
 
+            mediaSelector.addEventListener('keydown', (event) => {
+                if (event.key == 'Enter') {
+                    event.preventDefault();
+                    mediaSelector.click();
+                }
+            });
+
             gallery.appendChild(card);
 
         });
@@ -147,8 +156,6 @@ export class CollectionView {
 
         return gallery;
     }
-
-
 
     refresh() {
         this.sort();
