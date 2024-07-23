@@ -4,9 +4,24 @@
 
 .photographers-list {
     display: grid;
+    gap: 20px;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 70px;
     margin-top: 100px;
+}
+
+.photographers-list article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 25px;
+    border-radius: 15px;
+}
+
+.photographers-list article:focus-within,
+.photographers-list article:hover {
+    background-color: #fafafa;
+    outline: solid 1px #525252;
 }
 
 .photographers-list a {
@@ -15,15 +30,8 @@
     align-items: center;
 }
 
-.photographers-list article {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.photographers-list article:focus-within,
-.photographers-list article:hover {
-    background-color: #fafafa;
+.photographers-list a:focus {
+    outline: none;
 }
 
 .photographers-list article h2 {

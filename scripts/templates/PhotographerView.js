@@ -13,7 +13,6 @@ export class PhotographerView {
         picture.classList.add('photographer-picture');
         picture.setAttribute('src', this.photographer.portrait);
         picture.setAttribute('alt', this.photographer.name);
-
         return picture;
 
     }
@@ -22,10 +21,12 @@ export class PhotographerView {
 
         const link = document.createElement('a');
         link.setAttribute('href', './photographer.html?id=' + this.photographer.id);    
+        link.ariaLabel = this.photographer.name;
 
         const card = document.createElement('article');
 
         const img = this.picture;
+        img.setAttribute('alt', '');
 
         const h2 = document.createElement('h2');
         h2.textContent = this.photographer.name;
