@@ -1,16 +1,15 @@
 export class Lightbox {
 
-    constructor(mediaList, index) {
+    constructor(mediaList) {
         this.mediaList = mediaList;
-        this.index = index;
     }
 
     get view() {
 
-        this.keyboardEventBoundFunction = this.handleLightboxKeyboardEvents.bind(this);
-        document.addEventListener('keydown', this.keyboardEventBoundFunction);
-
         const view = document.createElement('div');
+        view.classList.add('modal-lightbox');
+        view.role = 'dialog';
+        view.ariaModal = true;
 
         // Arrow button for previous media
         const previousButton = document.createElement('span');
@@ -42,12 +41,7 @@ export class Lightbox {
         const closeButton = document.createElement('span');
         closeButton.classList.add('lightbox-button', 'lightbox-button-close');
         closeButton.textContent = '\u{1f7ab}';
-        closeButton.addEventListener('click', () => {
-            document.removeEventListener('keydown', this.keyboardEventBoundFunction);
-            const modalWrapper = document.querySelector('.modal-anchor');
-            view.remove();
-            modalWrapper.style.display = 'none';
-        });
+        closeButton.addEventListener('click', this.closeLightbox.bind(this));
         view.appendChild(closeButton);
 
         return view;
@@ -123,6 +117,45 @@ export class Lightbox {
         }
     }
 
+
+    openLightbox(index) {
+
+        this.index = index;
+
+        this.keyboardEventBoundFunction = this.handleLightboxKeyboardEvents.bind(this);
+        document.addEventListener('keydown', this.keyboardEventBoundFunction);
+
+        const modalAnchor = document.querySelector('.modal-anchor');
+        const lightboxView = this.view;
+        modalAnchor.appendChild(lightboxView);
+        modalAnchor.style.display = 'flex';
+        lightboxView.style.display = 'flex';
+
+        const headerSelector = document.querySelector('body > header');
+        const mainSelector = document.querySelector('body > main');
+        headerSelector.ariaHidden = true;
+        headerSelector.setAttribute('inert', true);
+        mainSelector.ariaHidden = true;
+        mainSelector.setAttribute('inert', true);
+
+    }
+
+    closeLightbox() {
+        document.removeEventListener('keydown', this.keyboardEventBoundFunction);
+
+        const headerSelector = document.querySelector('body > header');
+        const mainSelector = document.querySelector('body > main');
+        headerSelector.removeAttribute('aria-hidden');
+        headerSelector.removeAttribute('inert');
+        mainSelector.removeAttribute('aria-hidden');
+        mainSelector.removeAttribute('inert');
+
+        const lightbox = document.querySelector('.modal-lightbox');
+        const modalWrapper = document.querySelector('.modal-anchor');
+        lightbox.remove();
+        modalWrapper.style.display = 'none';
+    }
+
     handleLightboxKeyboardEvents(event) {
 
         if (event.key == 'ArrowLeft') {
@@ -131,7 +164,10 @@ export class Lightbox {
         } else if (event.key == 'ArrowRight') {
             event.preventDefault();
             this.displayNextMedia();
-        };
+        } else if (event.key == 'Escape') {
+            event.preventDefault();
+            this.closeLightbox();
+        }
 
     }
 

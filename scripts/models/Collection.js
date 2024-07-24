@@ -1,5 +1,5 @@
 import { MediaFactory } from '../models/MediaFactory.js';
-import { CollectionView } from '../templates/CollectionView.js';
+import { CollectionView } from '../views/CollectionView.js';
 
 export class Collection {
 

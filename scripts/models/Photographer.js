@@ -1,5 +1,5 @@
 import { Collection } from '../models/Collection.js';
-import { PhotographerView } from '../templates/PhotographerView.js';
+import { PhotographerView } from '../views/PhotographerView.js';
 
 export class Photographer {
 

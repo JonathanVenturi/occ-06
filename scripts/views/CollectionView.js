@@ -1,10 +1,12 @@
-import { MediaView } from '../templates/MediaView.js';
-import { Lightbox } from '../templates/Lightbox.js';
+import { MediaView } from '../views/MediaView.js';
+import { Lightbox } from '../views/Lightbox.js';
 
 export class CollectionView {
 
     constructor(collection) {
         this.collection = collection.medias;
+
+        this.lightbox = new Lightbox(this.collection);
 
         // Building the option list for the sorter
         this.sortingOptions = new Map([
@@ -118,27 +120,16 @@ export class CollectionView {
         const gallery = document.createElement('section');
         gallery.classList.add('media-gallery');
 
-
         this.collection.forEach((media, index) => {
 
             const card = new MediaView(media);
 
             const mediaSelector = card.querySelector('.media');
             mediaSelector.tabIndex = 0;
+            media.ariaHasPopup = 'true';
 
             mediaSelector.addEventListener('click', () => {
-                const modalAnchor = document.querySelector('.modal-anchor');
-
-                const lightbox = new Lightbox(this.collection, index);
-                const lightboxView = lightbox.view;
-
-                modalAnchor.style.display = 'flex';
-
-                lightboxView.classList.add('modal-lightbox');
-                lightboxView.style.display = 'flex';
-
-                modalAnchor.appendChild(lightboxView);
-
+                this.lightbox.openLightbox(index);
             });
 
             mediaSelector.addEventListener('keydown', (event) => {

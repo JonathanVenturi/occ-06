@@ -15,16 +15,28 @@ export class MediaView {
         info.appendChild(h2);
 
         const heart = document.createElement('span');
-        heart.textContent = this.media.likes;
         heart.classList.add('heart');
+        heart.tabIndex = 0;
+        heart.role = 'switch';
+        heart.textContent = this.media.likes;
+        heart.ariaLabel = this.media.likes + ' likes';
         if(this.media.isLiked) {
             heart.classList.add('liked');
+            heart.ariaChecked = true;
+        } else {
+            heart.ariaChecked = false;
         }
         info.appendChild(heart);
 
         heart.addEventListener('click', (event) => {
             this.media.toggleLiked();
             this.updateInfo(event.target.parentNode);
+        });
+
+        heart.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                heart.click();
+            }
         });
 
         return info;

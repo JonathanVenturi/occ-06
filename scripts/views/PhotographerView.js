@@ -1,9 +1,10 @@
-import { ContactForm } from '../templates/ContactForm.js';
+import { ContactForm } from '../views/ContactForm.js';
 
 export class PhotographerView {
 
     constructor(photographer) {
         this.photographer = photographer;
+        this.contactForm = new ContactForm(photographer);
     }
 
 
@@ -20,7 +21,7 @@ export class PhotographerView {
     get card() {
 
         const link = document.createElement('a');
-        link.setAttribute('href', './photographer.html?id=' + this.photographer.id);    
+        link.setAttribute('href', './photographer.html?id=' + this.photographer.id);
         link.ariaLabel = this.photographer.name;
 
         const card = document.createElement('article');
@@ -81,9 +82,8 @@ export class PhotographerView {
         const contactButton = document.createElement('button');
         contactButton.classList.add('button', 'button-contact');
         contactButton.textContent = 'Contactez-moi';
-
         contactButton.addEventListener('click', () => {
-            this.openContactModal();
+            this.contactForm.displayModal();
         });
 
         profile.appendChild(contactButton);
@@ -124,13 +124,6 @@ export class PhotographerView {
         const profileSelector = document.querySelector('.profile');
         const profile = this.profile;
         profileSelector.replaceWith(profile);
-    }
-
-    openContactModal() {
-        const modalSelector = document.querySelector('.modal-anchor');
-        const contactModal = new ContactForm(this.photographer);
-        modalSelector.appendChild(contactModal);
-        modalSelector.style.display = 'flex';
     }
 
 }
